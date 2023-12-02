@@ -1,31 +1,44 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - Devops-Project-Bouaita-Prevost-SI02
+name: Node.js CI
 
 on:
   push:
-    branches:
-      - TestCI
-  workflow_dispatch:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js version
+      - uses: actions/checkout@v3
+      - name: Change directory
+        run: cd ./userapi
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: ./userapi/package-lock.json
+      - run: npm ci --prefix ./userapi
+      - run: npm run build --if-present
+        working-directory: ./userapi
+      - run: npm test
+        working-directory: ./userapi
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
