@@ -72,4 +72,4 @@ jobs:
           app-name: 'Devops-Project-Bouaita-Prevost-SI02'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_89F8584585524815AD3734D7752ABC31 }}
-          package: .
+          package: './userapi'
