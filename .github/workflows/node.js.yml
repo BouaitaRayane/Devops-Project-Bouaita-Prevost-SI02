@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Change directory
-        run: cd Devops-Project-Bouaita-Prevost-SI02/userapi
+        run: cd .\userapi
       - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
