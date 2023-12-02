@@ -94,11 +94,85 @@ describe('User REST API', () => {
                 })
         })
     })
-
+    describe('PUT /user', ()=> {
+        it('update an user', (done) => {
+            const user = {
+                username: 'sergkudinov',
+                firstname: 'Sergei',
+                lastname: 'Kudinov'
+            }
+            userController.create(user, () => {
+                chai.request(app)
+                    .put('/user/' + user.username)
+                    .send({
+                        firstname: 'Guillaume',
+                        lastname: 'Prevost'
+                    })
+                    .then((res) => {
+                        chai.expect(res).to.have.status(200)
+                        chai.expect(res.body.status).to.equal('success')
+                        chai.expect(res).to.be.json
+                        done()
+                    })
+                    .catch((err) => {
+                        done(err);
+                    })
+            })
+        }),
+        it('update an user that does not exist', (done) => {
+            chai.request(app)
+                .put('/user/invalid')
+                .send({
+                    firstname: 'Guillaume',
+                    lastname: 'Prevost'
+                })
+                .then((res) => {
+                    chai.expect(res).to.have.status(400)
+                    chai.expect(res.body.status).to.equal('error')
+                    chai.expect(res).to.be.json
+                    done()
+                })
+                .catch((err) => {
+                    done(err);
+                })
+        })
+    })
+    describe('DELETE /user', ()=> {
+        it('delete an user', (done) => {
+            const user = {
+                username: 'sergkudinov',
+                firstname: 'Sergei',
+                lastname: 'Kudinov'
+            }
+            userController.create(user, () => {
+                chai.request(app)
+                    .delete('/user/' + user.username)
+                    .then((res) => {
+                        chai.expect(res).to.have.status(200)
+                        chai.expect(res.body.status).to.equal('success')
+                        chai.expect(res).to.be.json
+                        done()
+                    })
+                    .catch((err) => {
+                        done(err);
+                    })
+            })
+        }),
+        it('delete an user that does not exist', (done) => {
+            chai.request(app)
+                .delete('/user/invalid')
+                .then((res) => {
+                    chai.expect(res).to.have.status(400)
+                    chai.expect(res.body.status).to.equal('error')
+                    chai.expect(res).to.be.json
+                    done()
+                })
+                .catch((err) => {
+                    done(err);
+                })
+        })
+    })
 
 })
 
-//TODO Put
-//TODO Delete
-//TODO Get
 

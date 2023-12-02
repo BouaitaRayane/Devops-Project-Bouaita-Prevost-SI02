@@ -79,11 +79,4 @@ userRouter
     });
 module.exports = userRouter
 
-/*
-* Swagger
-* */
 //TODO: Swagger
-//TODO: delete
-//TODO: put
-//TODO: get
-//TODO: post

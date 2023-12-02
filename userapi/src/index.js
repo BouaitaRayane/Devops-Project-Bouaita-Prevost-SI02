@@ -27,4 +27,4 @@ const server = app.listen(port, (err) => {
 
 
 module.exports = server
-//TODO: check les choses a faire pour le projet
+//TODO: Swagger
