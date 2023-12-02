@@ -2,6 +2,7 @@ const app = require('../src/index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const db = require('../src/dbClient')
+const userController = require('../src/controllers/user')
 
 chai.use(chaiHttp)
 
@@ -17,9 +18,9 @@ describe('User REST API', () => {
       db.quit()
     })
 
-  describe('POST /user', () => {
+    describe('POST /user', () => {
 
-    it('create a new user', (done) => {
+        it('create a new user', (done) => {
       const user = {
         username: 'sergkudinov',
         firstname: 'Sergei',
@@ -39,7 +40,7 @@ describe('User REST API', () => {
         })
     })
     
-    it('pass wrong parameters', (done) => {
+        it('pass wrong parameters', (done) => {
       const user = {
         firstname: 'Sergei',
         lastname: 'Kudinov'
@@ -57,14 +58,47 @@ describe('User REST API', () => {
            throw err
         })
     })
-  })
+    });
+    describe('GET /user', ()=> {
+        it('get an user', (done) => {
+            const user = {
+                username: 'sergkudinov',
+                firstname: 'Sergei',
+                lastname: 'Kudinov'
+            }
+            userController.create(user, () => {
+                chai.request(app)
+                    .get('/user/' + user.username)
+                    .then((res) => {
+                        chai.expect(res).to.have.status(200)
+                        chai.expect(res.body.status).to.equal('success')
+                        chai.expect(res).to.be.json
+                        done()
+                    })
+                    .catch((err) => {
+                        done(err);
+                    })
+            })
+        }),
+        it('get an user that does not exist', (done) => {
+            chai.request(app)
+                .get('/user/invalid')
+                .then((res) => {
+                    chai.expect(res).to.have.status(400)
+                    chai.expect(res.body.status).to.equal('error')
+                    chai.expect(res).to.be.json
+                    done()
+                })
+                .catch((err) => {
+                    done(err);
+                })
+        })
+    })
 
-  // describe('GET /user', ()=> {
-  //   // TODO Create test for the get method
-  // })
+
 })
 
 //TODO Put
 //TODO Delete
 //TODO Get
-//TODO Fin des tests
+

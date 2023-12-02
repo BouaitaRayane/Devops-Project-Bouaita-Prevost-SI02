@@ -16,4 +16,3 @@ process.on('SIGINT', function() {
 
 module.exports = db
 
-//Todo faire les tests unitaires
