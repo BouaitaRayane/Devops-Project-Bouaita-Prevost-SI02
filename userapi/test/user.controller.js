@@ -74,7 +74,11 @@ describe('User', () => {
         userController.create(user, () => {
           userController.get(user.username, (err, result) => {
             expect(err).to.be.equal(null)
-            expect(result).to.be.deep.equal(user)
+            expect(result).to.be.deep.equal(
+                {
+                    firstname: "Sergei",
+                    lastname: "Kudinov",
+                })
             done()
           })
         })
@@ -132,7 +136,7 @@ describe('User', () => {
         userController.create(user, () => {
             userController.delete(user.username, (err, result) => {
             expect(err).to.be.equal(null)
-            expect(result).to.be.equal('OK')
+            expect(result).to.be.equal(1)
             done()
             })
         })

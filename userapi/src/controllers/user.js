@@ -34,7 +34,7 @@ module.exports = {
         callback(null, res)
       else
         callback(new Error("User does not exist"), null)
-    })
+    });
   },
   update: (username, user, callback) => {
     if(!username)
