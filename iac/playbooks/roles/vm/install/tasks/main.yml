@@ -1,0 +1,15 @@
+
+- name: Install nodeJS on Ubuntu
+  apt:
+    name: nodejs
+    state: present
+  when: ansible_pkg_mgr == 'apt'
+  tags: install
+
+- name: Install redis on Ubuntu
+  apt:
+    name: redis-server
+    state: present
+  when: ansible_pkg_mgr == 'apt'
+  tags: install
+
