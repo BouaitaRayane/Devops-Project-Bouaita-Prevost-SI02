@@ -1,7 +1,8 @@
 const express = require('express')
 const userRouter = require('./routes/user')
 const bodyParser = require('body-parser')
-
+const redis = require('redis');
+const redisClient = redis.createClient();
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -25,6 +26,20 @@ const server = app.listen(port, (err) => {
   console.log("Server listening the port " + port)
 })
 
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
+
+app.get('/readiness', (req, res) => {
+  redisClient.ping((error, result) => {
+      if (error) {
+          console.error('Error checking Redis readiness:', error);
+          res.status(500).send('Internal Server Error');
+      } else {
+          res.send('OK');
+      }
+  });
+});
 
 module.exports = server
 //TODO: Swagger
