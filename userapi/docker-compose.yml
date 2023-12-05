@@ -11,7 +11,7 @@ services:
       - redis
     image: rayanebouaita/devops_project_bouaita_prevost
     ports:
-      - "6500:3000"
+      - "3000:3000"
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
