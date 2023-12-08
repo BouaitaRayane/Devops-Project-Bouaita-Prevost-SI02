@@ -9,6 +9,9 @@ services:
   web:
     depends_on:
       - redis
+    build:
+      context: ./userapi # Adjust the path to your application directory
+      dockerfile: Dockerfile
     image: rayanebouaita/devops_project_bouaita_prevost
     ports:
       - "3000:3000"
