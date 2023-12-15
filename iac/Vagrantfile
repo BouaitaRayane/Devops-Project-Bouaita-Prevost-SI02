@@ -31,6 +31,5 @@ Vagrant.configure("2") do |config|
     # The path to the playbooks entry point
     ansible.playbook = "playbooks/run.yml"
     ansible.tags = "install"
-
   end
 end
