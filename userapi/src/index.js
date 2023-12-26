@@ -1,8 +1,8 @@
 const express = require('express')
 const userRouter = require('./routes/user')
 const bodyParser = require('body-parser')
-const redis = require('redis');
-const redisClient = redis.createClient();
+// const redis = require('redis');
+// const redisClient = redis.createClient();
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -21,10 +21,6 @@ app.get('/', (req, res) => res.send('Hello World! Rayane Bouaita and Guillaume P
 
 app.use('/user', userRouter)
 
-const server = app.listen(port, (err) => {
-  if (err) throw err
-  console.log("Server listening the port " + port)
-})
 
 app.get('/health', (req, res) => {
   res.send('OK');
@@ -40,6 +36,11 @@ app.get('/readiness', (req, res) => {
       }
   });
 });
+
+const server = app.listen(port, (err) => {
+    if (err) throw err
+    console.log("Server listening the port " + port)
+})
 
 module.exports = server
 //TODO: Swagger
