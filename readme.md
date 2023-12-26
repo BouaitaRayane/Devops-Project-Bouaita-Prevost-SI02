@@ -1,1 +1,1 @@
-# Devops Project Rayane Bouaita and Guiiallaume Prevost SI02
+# Devops Project Rayane Bouaita and Guillaume Prevost SI02
