@@ -1,0 +1,9 @@
+- hosts: Devops-Bouaita-Prevost
+  become: true
+  roles:
+    - role: vm/install
+      tags: install
+    - role: vm/healthchecks
+      tags: healthchecks
+
+    
