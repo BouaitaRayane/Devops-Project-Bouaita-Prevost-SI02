@@ -27,7 +27,7 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/readiness', (req, res) => {
-  redisClient.ping((error, result) => {
+    db.get('nonexistent_key', (error, result) => {
       if (error) {
           console.error('Error checking Redis readiness:', error);
           res.status(500).send('Internal Server Error');
