@@ -176,11 +176,59 @@ The web application is accessible at http://127.0.0.1.56808.
 
 ## 7. Mesh using Istio
 
+We used Istio to create a service mesh. To install Istio we can follow the [documentation](https://istio.io/latest/docs/setup/getting-started/). Once Istio is installed we move to the istio directory and we run the following command to add the istioctl client to the PATH:
+```bash
+export PATH=$PWD/bin:$PATH
+```
+
+Once Istio installed we configure it to our Kubernetes cluster using injection with the following command:
+```bash
+kubectl label namespace default istio-injection=enabled
+```
+
+To check that istio is well injected in the pods we use the following command:
+```bash
+kubectl get ns --show-labels
+```
+
+![istio](./images/istio2.png)
+
+Then, we can create the file that will be used for route requests and traffic shifting. For the traffic shifting we choose to use the following configuration:
+- 30% of the traffic goes to the v1 of the application
+- 70% of the traffic goes to the v2 of the application
+
+
+The files are available [here](./istio/). We use the following command on istio directry to apply the file:
+```bash
+kubectl apply -f .
+```
+
 
 
 ## 8. Monitoring using Prometheus and Grafana
 
+To monitor our application we used Prometheus and Grafana. We will use the samples gived by istio. Istio gives two yaml files to use Prometheus and Grafana. We use the following command to deploy them:
 
+```bash
+kubectl apply -f monitoring/prometheus.yaml
+kubectl apply -f monitoring/grafana.yaml
+```
+
+In two diffrents terminals we use the following commands to port-forward Prometheus and Grafana:
+
+```bash
+kubectl port-forward svc/prometheus -n istio-system 9090
+kubectl port-forward svc/grafana -n istio-system 3000
+```
+
+Then we can access to the Prometheus dashboard at http://localhost:9090 and to the Grafana dashboard at http://localhost:3000. 
+
+Then, in the 9090 port we can see the Prometheus dashboard. We can execute queries to get metrics about our application. For example, we can get the number of requests per second on the application using the following query:
+```bash
+istio_requests_total
+```
+
+However, we don't have enough time to provide a dashboard with metrics about our application. We didn't manage to make working the previous command. We expected to have a dashboard with several Graph about our application.
 
 ## Bonus
 
