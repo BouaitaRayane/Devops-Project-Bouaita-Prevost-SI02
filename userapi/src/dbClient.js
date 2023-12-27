@@ -8,6 +8,7 @@ var db = redis.createClient({
   retry_strategy: () => {
     return new Error("Retry time exhausted")
   }
+
 })
 
 process.on('SIGINT', function() {

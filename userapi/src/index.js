@@ -43,4 +43,3 @@ const server = app.listen(port, (err) => {
 })
 
 module.exports = server
-//TODO: Swagger

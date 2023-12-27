@@ -20,3 +20,4 @@
 - name: Print redis running
   debug:
     msg: "{{ Devops_readiness.content }}"
+
