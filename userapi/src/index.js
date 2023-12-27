@@ -1,7 +1,8 @@
 const express = require('express')
 const userRouter = require('./routes/user')
 const bodyParser = require('body-parser')
-
+// const redis = require('redis');
+// const redisClient = redis.createClient();
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -20,10 +21,25 @@ app.get('/', (req, res) => res.send('Hello World! Rayane Bouaita and Guillaume P
 
 app.use('/user', userRouter)
 
-const server = app.listen(port, (err) => {
-  if (err) throw err
-  console.log("Server listening the port " + port)
-})
 
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
+
+app.get('/readiness', (req, res) => {
+    db.get('nonexistent_key', (error, result) => {
+      if (error) {
+          console.error('Error checking Redis readiness:', error);
+          res.status(500).send('Internal Server Error');
+      } else {
+          res.send('OK');
+      }
+  });
+});
+
+const server = app.listen(port, (err) => {
+    if (err) throw err
+    console.log("Server listening the port " + port)
+})
 
 module.exports = server

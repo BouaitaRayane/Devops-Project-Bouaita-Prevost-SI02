@@ -1,6 +1,6 @@
 - name: Check Application Health
   uri:
-    url: http://localhost:8080/health
+    url: http://localhost:3000/health
     return_content: yes
   # Register the output of the module in a variable
   register: Devops_health
@@ -12,7 +12,7 @@
 
 - name: Check Application redis readiness
   uri:
-    url: http://localhost:8080/readiness
+    url: http://localhost:3000/readiness
     return_content: yes
   # Register the output of the module in a variable
   register: Devops_readiness
