@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 
 app.get('/', (req, res) => res.send('Hello World! Rayane Bouaita and Guillaume Prevost'))
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use('/user', userRouter)
 
