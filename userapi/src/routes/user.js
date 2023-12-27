@@ -85,8 +85,8 @@ userRouter
         if(err) {
 
             respObj = {
-                status: "success",
-                msg: res
+                status: "error",
+                msg: err.message
             }
 
             return resp.status(400).json(respObj)
