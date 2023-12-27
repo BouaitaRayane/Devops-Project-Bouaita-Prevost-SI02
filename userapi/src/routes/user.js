@@ -83,10 +83,12 @@ userRouter
         userController.get(username, (err, res) => {
         let respObj
         if(err) {
+
             respObj = {
-            status: "error",
-            msg: err.message
+                status: "success",
+                msg: res
             }
+
             return resp.status(400).json(respObj)
         }
         respObj = {
@@ -137,8 +139,9 @@ userRouter
  *               status: "error"
  *               msg: "Invalid username"
  */
+
     .put('/:username', (req, resp, next) => {
-    const username = req.params.username
+        const username = req.params.username
             userController.update(username, req.body, (err, res) => {
                 let respObj
                 if(err) {
@@ -154,6 +157,7 @@ userRouter
                 }
                 resp.status(200).json(respObj);
             });
+
         })
 
 /**
@@ -185,6 +189,7 @@ userRouter
  *               status: "error"
  *               msg: "Username was not found"
  */
+
     .delete('/:username', (req, resp, next) => {
         const username = req.params.username
         userController.delete(username, (err, res) => {
@@ -204,3 +209,4 @@ userRouter
         });
     });
 module.exports = userRouter
+
