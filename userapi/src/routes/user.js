@@ -7,7 +7,28 @@ const userRouter = express.Router()
  * tags:
  *   name: Users
  *   description: List of API operations to manage users
- */
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The username of the user
+ *         firstname:
+ *           type: string
+ *           description: The firstname of the user
+ *         lastname:
+ *           type: string
+ *           description: The lastname of the user
+ *       required:
+ *        - username
+ *        - firstname
+ *        - lastname
+ *       example:
+ *         username: gprevost
+ *         firstname: Guillaume
+ *         lastname: Prevost
 
 /**
  * @swagger

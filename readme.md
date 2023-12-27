@@ -180,3 +180,37 @@ The web application is accessible at http://127.0.0.1.56808.
 
 ## 8. Monitoring using Prometheus and Grafana
 
+
+
+## Bonus
+
+### 1. Swagger-UI
+
+In order to document our user API, we used **Swagger-UI**. We can check it at <http://localhost:3000/api-docs>.
+
+To use it, we first need to install it with the following command:
+```npm install swagger-jsdoc swagger-ui-express --save```
+
+Then we created a file swagger.js in order to configure the differents options or settings for our API.
+After that, we created the route /api-docs to check the API.
+
+Finally we updated the user.js file to add all the descriptions we wanted to document our User API.
+
+The default page shows the four methods we documented for the user:
+![swagger](./images/swagger_default.png)
+
+Then we have the documentation for each methods with its results:
+- **POST** method:
+![swagger](./images/swagger_post.png)
+
+Then we have the documentation for each methods with its results:
+- **GET** method:
+![swagger](./images/swagger_get.png)
+
+Then we have the documentation for each methods with its results:
+- **PUT** method:
+![swagger](./images/swagger_put.png)
+
+Then we have the documentation for each methods with its results:
+- **DELETE** method:
+![swagger](./images/swagger_del.png)
