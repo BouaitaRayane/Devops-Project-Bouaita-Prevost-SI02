@@ -5,7 +5,8 @@ const bodyParser = require('body-parser')
 // const redisClient = redis.createClient();
 const app = express()
 const port = process.env.PORT || 3000
-
+const swaggerUI = require("swagger-ui-express");
+const specs = require('./swagger');
 const db = require('./dbClient')
 db.on("error", (err) => {
   console.error(err)
