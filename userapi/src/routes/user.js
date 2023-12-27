@@ -7,6 +7,10 @@ const userRouter = express.Router()
  * tags:
  *   name: Users
  *   description: List of API operations to manage users
+ */
+
+/**
+ * @swagger
  * components:
  *   schemas:
  *     User:
@@ -29,6 +33,7 @@ const userRouter = express.Router()
  *         username: gprevost
  *         firstname: Guillaume
  *         lastname: Prevost
+ */
 
 /**
  * @swagger
@@ -133,17 +138,11 @@ userRouter
  *         description: The username of the user
  *         schema:
  *           type: string
- *       - in: body
- *         name: user
- *         required: true
- *         description: The updated user details
- *         schema:
- *           type: object
- *           properties:
- *             email:
- *               type: string
- *             fullName:
- *               type: string
+ *     requestBody: 
+ *       required: true
+ *       description: The updated user details
+ *       schema:
+ *         $ref: '#/components/schemas/User'
  *     responses:
  *       '200':
  *         description: OK
@@ -230,4 +229,3 @@ userRouter
         });
     });
 module.exports = userRouter
-
